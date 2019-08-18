@@ -1,3 +1,9 @@
+#<copyright>
+#  Copyright (c) 2019 Skeyll All Rights Reserved.
+#  Released under the MIT license.
+#  see https://opensource.org/licenses/MIT
+#</copyright>
+
 import discord
 
 TOKEN = 'TOKENID'
