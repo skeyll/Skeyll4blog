@@ -10,10 +10,6 @@ TOKEN = 'TOKENID'
 
 client = discord.Client()
 
-# int
-CHANNEL_ID = 611804709115658265
-
-from collections import OrderedDict
 BossNum = ["1","2","3","4","5"]
 # If someone reserve an attack, add to this list.
 Booking1 = []
@@ -29,17 +25,20 @@ async def on_message(message):
     bookFlag = 0
     endFlag = 0
     displayFlag = 0
+    # mentionFlag = 0
 
     if message.content.startswith("rsv"):
-       if "list" in message.content: #Display list
+       if "list" in message.content: # Call a list
            listFlag = 1
-       elif "fin" in message.content: # Remove a book
+       elif "fin" in message.content: # Remove from book
            removeFlag = 1
-       elif "END" in message.content: # Initialize Book Lists
+       elif "END" in message.content: # Initialize all lists
            endFlag = 1
-       elif "!" in message.content:
+       elif "!" in message.content: # Call all arrays
            displayFlag = 1
-       else: # Book to a list
+    #   elif "NOT" in message.content:
+    #       mentionFlag = 1
+       else: # Book
            bookFlag = 1
 
        if listFlag == 1:
@@ -51,8 +50,8 @@ async def on_message(message):
            for Boss in BossNum:
                if Boss in message.content:
                    BookList = "Booking" + Boss
-                   eval(BookList).remove(message.author.name)      
-           reply = "Did it! >" + message.author.name
+                   eval(BookList).remove(message.author.display_name)      
+           reply = "Did it! >" + message.author.display_name
            await message.channel.send(reply)
        elif endFlag == 1:
            for Boss in BossNum:
@@ -64,9 +63,18 @@ async def on_message(message):
            for Boss in BossNum:
                if Boss in message.content:
                   BookList = "Booking" + Boss
-                  eval(BookList).append(message.author.name)
-                  reply = "Book on " + str(Boss) + "! >" + message.author.name
+                  eval(BookList).append(message.author.display_name)
+                  reply = "Book on " + str(Boss) + "! >" + message.author.display_name
                   await message.channel.send(reply)
+ #      elif mentionFlag == 1:
+ #           mentionList = []
+ #           for Boss in BossNum:
+ #               if Boss in message.content:
+ #                 BookList = "Booking" + Boss
+ #                 break
+ #           for one in eval(BookList):
+ #               mentionList.append(" @" + one + " ")
+ #           await message.channel.send(mentionList)
        elif displayFlag == 1: # Display all book list
            for Boss in BossNum:
                BookList = "Booking" + Boss
@@ -76,6 +84,7 @@ async def on_message(message):
        removeFlag = 0
        bookFlag = 0
        endFlag = 0
-       ddisplayFlag = 0
+       displayFlag = 0
+ #      mentionFlag = 0
 
 client.run(TOKEN)
