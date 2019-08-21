@@ -26,7 +26,7 @@ async def on_message(message):
     bookFlag = 0
     endFlag = 0
     displayFlag = 0
-
+    
     if message.content.startswith("rsv"):
        if "list" in message.content: # Call a list
            listFlag = 1
@@ -77,8 +77,19 @@ async def on_message(message):
                    eval(BookList).remove(message.author.display_name)      
         reply = "削除完了 >" + message.author.display_name
         await message.channel.send(reply)
-    
+
+    elif message.content.startswith("Del"):
+        for Boss in BossNum:
+               if Boss in message.content:
+                   BookList = "Booking" + Boss
+                   for one in eval(BookList):
+                       if one in message.content:
+                           eval(BookList).remove(one)
+                           reply = "削除完了 >" + one
+                           await message.channel.send(reply)
+                           break
+
     elif message.content.startswith("cmd"):
-        await message.channel.send("予約:rsv 1-5 / 予約表示:rsv list 1-5 / 予約全表示:rsv! / 予約削除:fin 1-5 / 予約全削除:rsv END")
+        await message.channel.send("予約:rsv 1-5 / 予約表示:rsv list 1-5 / 予約全表示:rsv! / 予約削除:fin 1-5 / 予約全削除:rsv END / 名前指定削除:Del name(一致）")
 
 client.run(TOKEN)
