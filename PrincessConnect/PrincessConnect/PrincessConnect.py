@@ -59,10 +59,10 @@ async def on_message(message):
                   BookList = "Booking" + Boss
                   eval(BookList).append(message.author.display_name)
                   bossCount += 1
-           bookFlag = 0
            if bossCount >= 1:
-               await message.channel.send(reply)
                reply = str(bossCount) + "件の予約 >" + message.author.display_name
+               await message.channel.send(reply)
+           bookFlag = 0
 
        elif displayFlag == 1: # Display all book list
            for Boss in BossNum:
