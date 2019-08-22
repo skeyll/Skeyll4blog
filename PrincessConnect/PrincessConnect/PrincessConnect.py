@@ -19,7 +19,6 @@ Booking3 = []
 Booking4 = []
 Booking5 = []
 
-
 @client.event
 async def on_message(message):
     listFlag = 0
@@ -39,9 +38,11 @@ async def on_message(message):
 
        if listFlag == 1:
            for Boss in BossNum:
+               tmpList = []
                if Boss in message.content:
                   BookList = "Booking" + Boss
-                  await message.channel.send(eval(BookList))
+                  tmpList = [x[0] for x in eval(BookList)]
+                  await message.channel.send(tmpList)
            listFlag =  0
 
        elif endFlag == 1:
@@ -57,7 +58,7 @@ async def on_message(message):
            for Boss in BossNum:
                if Boss in message.content:
                   BookList = "Booking" + Boss
-                  eval(BookList).append(message.author.display_name)
+                  eval(BookList).append([message.author.display_name, str(message.author.mention)])
                   bossCount += 1
            if bossCount >= 1:
                reply = str(bossCount) + "件の予約 >" + message.author.display_name
@@ -66,30 +67,30 @@ async def on_message(message):
 
        elif displayFlag == 1: # Display all book list
            for Boss in BossNum:
+               tmpList = []
                BookList = "Booking" + Boss
-               await message.channel.send(eval(BookList))
+               tmpList = [x[0] for x in eval(BookList)]
+               await message.channel.send(tmpList)
            displayFlag = 0
 
     elif message.content.startswith("fin"):
         for Boss in BossNum:
                if Boss in message.content:
                    BookList = "Booking" + Boss
-                   eval(BookList).remove(message.author.display_name)      
+                   eval(BookList).remove([message.author.display_name,str(message.author.mention)]) 
         reply = "削除完了 >" + message.author.display_name
         await message.channel.send(reply)
 
-    elif message.content.startswith("Del"):
+    elif message.content.startswith("ment"):
         for Boss in BossNum:
-               if Boss in message.content:
-                   BookList = "Booking" + Boss
-                   for one in eval(BookList):
-                       if one in message.content:
-                           eval(BookList).remove(one)
-                           reply = "削除完了 >" + one
-                           await message.channel.send(reply)
-                           break
-
+            tmpList = []
+            if Boss in message.content:
+                  BookList = "Booking" + Boss
+                  tmpList = [x[1] for x in eval(BookList)]
+                  await message.channel.send(tmpList)
+    
     elif message.content.startswith("cmd"):
-        await message.channel.send("予約:rsv 1-5 / 予約表示:rsv list 1-5 / 予約全表示:rsv! / 予約削除:fin 1-5 / 予約全削除:rsv END / 名前指定削除:Del name(一致）")
+        await message.channel.send("予約:rsv 1-5 / 予約表示:rsv list 1-5 / 予約全表示:rsv! / 予約削除:fin 1-5 / 予約全削除:rsv END / 通知:ment 1-5")
+         
 
 client.run(TOKEN)
