@@ -93,7 +93,10 @@ async def on_message(message):
             if Boss in message.content:
                   BookList = "Booking" + Boss
                   tmpList = [x[1] for x in eval(BookList)]
-                  await message.channel.send(tmpList)
+                  member = ""
+                  for one in tmpList:
+                      member += one + " "
+                  await message.channel.send("Boss" + Boss + ":" + member)
     
     elif message.content.startswith("cmd"):
         await message.channel.send("予約:rsv 1-5 / 予約表示:rsv list 1-5 / 予約全表示:rsv! / 予約削除:fin 1-5 / 予約全削除:rsv END / 通知:ment 1-5")
