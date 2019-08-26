@@ -7,7 +7,7 @@
 
 import discord
 
-TOKEN = 'TOKENID'
+TOKEN = 'TOKENID' # you need to change TOKENID to your orginal ID.
 
 client = discord.Client()
 
@@ -42,7 +42,10 @@ async def on_message(message):
                if Boss in message.content:
                   BookList = "Booking" + Boss
                   tmpList = [x[0] for x in eval(BookList)]
-                  await message.channel.send(tmpList)
+                  member = ""
+                  for one in tmpList:
+                      member += one + " "
+                  await message.channel.send("Boss" + Boss + ":" + member)
            listFlag =  0
 
        elif endFlag == 1:
@@ -69,8 +72,11 @@ async def on_message(message):
            for Boss in BossNum:
                tmpList = []
                BookList = "Booking" + Boss
-               tmpList = [x[0] for x in eval(BookList)]
-               await message.channel.send(tmpList)
+               tmpList= [x[0] for x in eval(BookList)]
+               member = ""
+               for one in tmpList:
+                   member += one + " "
+               await message.channel.send("Boss" + Boss + ":" + member)
            displayFlag = 0
 
     elif message.content.startswith("fin"):
