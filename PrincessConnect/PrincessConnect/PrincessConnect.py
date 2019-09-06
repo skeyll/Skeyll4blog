@@ -1,13 +1,6 @@
-#<copyright>
-#  Copyright (c) 2019 Skeyll All Rights Reserved.
-#  https://skeyll.hateblo.jp/entry/PrincessConnect
-#  Released under the MIT license.
-#  see https://opensource.org/licenses/MIT
-#</copyright>
-
 import discord
 
-TOKEN = 'TOKENID' # you need to change TOKENID to your orginal ID.
+TOKEN = 'TOKENID' #TOKENIDの部分を自分のIDに変える
 
 client = discord.Client()
 
@@ -99,7 +92,8 @@ async def on_message(message):
                   await message.channel.send("Boss" + Boss + ":" + member)
     
     elif message.content.startswith("cmd"):
-        await message.channel.send("予約:rsv 1-5 / 予約表示:rsv list 1-5 / 予約全表示:rsv! / 予約削除:fin 1-5 / 予約全削除:rsv END / 通知:ment 1-5")
+        reply = "予約:rsv 1-5 / 予約表示:rsv list 1-5 / 予約全表示:rsv! / 予約削除:fin 1-5 / 予約全削除:rsv END / 通知:ment 1-5"
+        await message.channel.send(reply)
          
 
 client.run(TOKEN)
